@@ -24,24 +24,24 @@
 
 Нужны Ubuntu 24.04 с systemd, Docker Compose, curl и существующий сервис `remnanode` в `/opt/remnanode/docker-compose.yml`. Домен должен обслуживаться DNS Cloudflare, API-токену требуется право `Zone → DNS → Edit` для его зоны. Zone ID не нужен.
 
-Выполнять от **root в Bash**. Замените домен своим при необходимости.
+Выполнять от **root в Bash**. Замените пример `node.example.com` своим доменом.
 
 **Со скрытым вводом API-токена:**
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node-kz-01.omnihub.dpdns.org
+bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node.example.com
 ```
 
 **С API-токеном в команде:**
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node-kz-01.omnihub.dpdns.org 'ТВОЙ_API_TOKEN'
+bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node.example.com 'ТВОЙ_API_TOKEN'
 ```
 
 **С API-токеном и email:**
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node-kz-01.omnihub.dpdns.org 'ТВОЙ_API_TOKEN' 'admin@example.com'
+bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudflare-ssl/refs/heads/main/issue-ssl-cloudflare.sh) node.example.com 'ТВОЙ_API_TOKEN' 'admin@example.com'
 ```
 
 Токен в команде может сохраняться в истории shell. Запуск принимает условия Let’s Encrypt.
@@ -51,13 +51,13 @@ bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudfla
 Сертификат с цепочкой:
 
 ```text
-/opt/certbot/certs/live/node-kz-01.omnihub.dpdns.org/fullchain.pem
+/opt/certbot/certs/live/node.example.com/fullchain.pem
 ```
 
 Закрытый ключ:
 
 ```text
-/opt/certbot/certs/live/node-kz-01.omnihub.dpdns.org/privkey.pem
+/opt/certbot/certs/live/node.example.com/privkey.pem
 ```
 
 ## Пути сертификата внутри контейнера
@@ -67,13 +67,13 @@ bash <(curl -fsSL https://raw.githubusercontent.com/eEkcoffEe/remnanode-cloudfla
 Сертификат с цепочкой:
 
 ```text
-/etc/letsencrypt/live/node-kz-01.omnihub.dpdns.org/fullchain.pem
+/etc/letsencrypt/live/node.example.com/fullchain.pem
 ```
 
 Закрытый ключ:
 
 ```text
-/etc/letsencrypt/live/node-kz-01.omnihub.dpdns.org/privkey.pem
+/etc/letsencrypt/live/node.example.com/privkey.pem
 ```
 
 Для другого домена его имя в путях меняется соответственно. Не удаляйте каталог `/opt/certbot/certs` и файл API-токена: они нужны для автоматического продления.
@@ -89,5 +89,5 @@ systemctl list-timers --all remnanode-certbot-renew.timer
 Тест продления:
 
 ```bash
-certbot renew --config-dir /opt/certbot/certs --cert-name node-kz-01.omnihub.dpdns.org --dry-run
+certbot renew --config-dir /opt/certbot/certs --cert-name node.example.com --dry-run
 ```
